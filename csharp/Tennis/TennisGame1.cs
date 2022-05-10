@@ -8,10 +8,14 @@ namespace Tennis
         public TennisGame1(string player1Name, string player2Name)
         {
         }
-        
+
         public enum Scores
         {
-            Love
+            Love,
+            Fifteen,
+            Thirty,
+            Forty,
+            Deuce
         }
 
         public void WonPoint(string playerName)
@@ -34,18 +38,17 @@ namespace Tennis
                 switch (m_score1)
                 {
                     case 0:
-                        score = "Love-All";
+                        score = $"{Scores.Love}-All";
                         break;
                     case 1:
-                        score = "Fifteen-All";
+                        score = $"{Scores.Fifteen}-All";
                         break;
                     case 2:
-                        score = "Thirty-All";
+                        score = $"{Scores.Thirty}-All";
                         break;
                     default:
-                        score = "Deuce";
+                        score = Scores.Deuce.ToString();
                         break;
-
                 }
             }
             else if (m_score1 >= 4 || m_score2 >= 4)
@@ -61,26 +64,31 @@ namespace Tennis
                 for (var i = 1; i < 3; i++)
                 {
                     if (i == 1) tempScore = m_score1;
-                    else { score += "-"; tempScore = m_score2; }
+                    else
+                    {
+                        score += "-";
+                        tempScore = m_score2;
+                    }
+
                     switch (tempScore)
                     {
                         case 0:
                             score += Scores.Love;
                             break;
                         case 1:
-                            score += "Fifteen";
+                            score += Scores.Fifteen;
                             break;
                         case 2:
-                            score += "Thirty";
+                            score += Scores.Thirty;
                             break;
                         case 3:
-                            score += "Forty";
+                            score += Scores.Forty;
                             break;
                     }
                 }
             }
+
             return score;
         }
     }
 }
-
