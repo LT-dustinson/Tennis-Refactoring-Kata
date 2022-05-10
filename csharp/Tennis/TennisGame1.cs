@@ -25,6 +25,10 @@ namespace Tennis
         {
             string score = "";
             var tempScore = 0;
+            //too much nesting
+            //magic string smell
+            //unused variable smells
+            
             if (m_score1 == m_score2)
             {
                 switch (m_score1)
