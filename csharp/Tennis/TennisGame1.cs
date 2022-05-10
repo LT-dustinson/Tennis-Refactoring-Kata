@@ -4,13 +4,14 @@ namespace Tennis
     {
         private int m_score1 = 0;
         private int m_score2 = 0;
-        private string player1Name;
-        private string player2Name;
 
         public TennisGame1(string player1Name, string player2Name)
         {
-            this.player1Name = player1Name;
-            this.player2Name = player2Name;
+        }
+        
+        public enum Scores
+        {
+            Love
         }
 
         public void WonPoint(string playerName)
@@ -27,8 +28,7 @@ namespace Tennis
             var tempScore = 0;
             //too much nesting
             //magic string smell
-            //unused variable smells
-            
+
             if (m_score1 == m_score2)
             {
                 switch (m_score1)
@@ -65,7 +65,7 @@ namespace Tennis
                     switch (tempScore)
                     {
                         case 0:
-                            score += "Love";
+                            score += Scores.Love;
                             break;
                         case 1:
                             score += "Fifteen";
