@@ -39,35 +39,40 @@ namespace Tennis
             }
             else
             {
-                score = SetASDF(score);
+                score = SetAsdf(score);
             }
 
             return score;
         }
 
-        private string SetASDF(string score)
+        private string SetAsdf(string score)
         {
-            for (var i = 1; i < 3; i++)
-            {
-                int tempScore;
-                if (i == 1) tempScore = _mScore1;
-                else
-                {
-                    score += "-";
-                    tempScore = _mScore2;
-                }
-
-                score = SetScore(tempScore, score);
-            }
+            // for (var i = 1; i < 3; i++)
+            // {
+            //     int tempScore;
+            //     if (i == 1) tempScore = _mScore1;
+            //     else
+            //     {
+            //         score += "-";
+            //         tempScore = _mScore2;
+            //     }
+            //
+            //     score = SetScore(tempScore, score);
+            // }
+            //unwrapping of loop
+            int tempScoreasdf = _mScore1;
+            score = SetScore(tempScoreasdf, score);
+            score += "-";
+            tempScoreasdf = _mScore2;
+            score = SetScore(tempScoreasdf, score);
 
             return score;
         }
 
         private string SetAdvantageOrWinScore()
         {
-            string score;
             var minusResult = _mScore1 - _mScore2;
-            score = minusResult switch
+            var score = minusResult switch
             {
                 1 => "Advantage player1",
                 -1 => "Advantage player2",
