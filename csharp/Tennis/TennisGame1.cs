@@ -5,10 +5,12 @@ namespace Tennis
         private int _player1Points;
         private int _player2Points;
         private readonly string _player1Name;
+        private readonly string _player2Name;
 
         public TennisGame1(string player1Name, string player2Name)
         {
             _player1Name = player1Name;
+            _player2Name = player2Name;
         }
 
         private enum Scores
@@ -47,15 +49,13 @@ namespace Tennis
 
         private string SetAdvantageOrWinScore()
         {
-            var minusResult = _player1Points - _player2Points;
-            var score = minusResult switch
+            return (_player1Points - _player2Points) switch
             {
                 1 => $"Advantage {_player1Name}",
-                -1 => "Advantage player2",
+                -1 => $"Advantage {_player2Name}",
                 >= 2 => $"Win for {_player1Name}",
-                _ => "Win for player2"
+                _ => $"Win for {_player2Name}"
             };
-            return score;
         }
 
         private static string SetScore(int tempScore)
@@ -76,11 +76,12 @@ namespace Tennis
 
         private string SetTieScore()
         {
+            const string allText = "-All";
             return _player1Points switch
             {
-                0 => $"{Scores.Love}-All",
-                1 => $"{Scores.Fifteen}-All",
-                2 => $"{Scores.Thirty}-All",
+                0 => $"{Scores.Love}{allText}",
+                1 => $"{Scores.Fifteen}{allText}",
+                2 => $"{Scores.Thirty}{allText}",
                 _ => Scores.Deuce.ToString()
             };
         }
