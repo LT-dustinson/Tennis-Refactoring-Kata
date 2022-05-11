@@ -47,9 +47,9 @@ namespace Tennis
 
         private string SetASDF(string score)
         {
-            int tempScore;
             for (var i = 1; i < 3; i++)
             {
+                int tempScore;
                 if (i == 1) tempScore = _mScore1;
                 else
                 {
@@ -76,6 +76,13 @@ namespace Tennis
 
         private static string SetScore(int tempScore, string score)
         {
+            score = GetScoreStringFromNumber(tempScore, score);
+
+            return score;
+        }
+
+        private static string GetScoreStringFromNumber(int tempScore, string score)
+        {
             switch (tempScore)
             {
                 case 0:
@@ -93,11 +100,6 @@ namespace Tennis
             }
 
             return score;
-        }
-
-        private bool IsWinningScore()
-        {
-            return _mScore1 >= 4 || _mScore2 >= 4;
         }
 
         private string CalculateTieScore()
@@ -120,6 +122,11 @@ namespace Tennis
             }
 
             return score;
+        }
+
+        private bool IsWinningScore()
+        {
+            return _mScore1 >= 4 || _mScore2 >= 4;
         }
 
         private bool IsEqualScore()
