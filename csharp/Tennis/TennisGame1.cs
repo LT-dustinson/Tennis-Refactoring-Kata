@@ -2,14 +2,14 @@ namespace Tennis
 {
     public class TennisGame1 : ITennisGame
     {
-        private int _mScore1 = 0;
-        private int _mScore2 = 0;
+        private int _player1Points;
+        private int _player2Points;
 
         public TennisGame1(string player1Name, string player2Name)
         {
         }
 
-        public enum Scores
+        private enum Scores
         {
             Love,
             Fifteen,
@@ -21,38 +21,31 @@ namespace Tennis
         public void WonPoint(string playerName)
         {
             if (playerName == "player1")
-                _mScore1 += 1;
+                _player1Points += 1;
             else
-                _mScore2 += 1;
+                _player2Points += 1;
         }
 
         public string GetScore()
         {
-            var score = "";
             if (IsEqualScore())
-            {
-                score = CalculateTieScore();
-            }
-            else if (IsWinningScore())
-            {
-                score = SetAdvantageOrWinScore();
-            }
-            else
-            {
-                score = SetAsdf(score);
-            }
+                return CalculateTieScore();
 
-            return score;
+            if (IsWinningScore())
+                return SetAdvantageOrWinScore();
+            
+            return SetPlayersScores();
+            
         }
 
-        private string SetAsdf(string score)
+        private string SetPlayersScores()
         {
-            return SetScore(_mScore1, score) + "-" + SetScore(_mScore2, score);
+            return SetScore(_player1Points) + "-" + SetScore(_player2Points);
         }
 
         private string SetAdvantageOrWinScore()
         {
-            var minusResult = _mScore1 - _mScore2;
+            var minusResult = _player1Points - _player2Points;
             var score = minusResult switch
             {
                 1 => "Advantage player1",
@@ -63,7 +56,7 @@ namespace Tennis
             return score;
         }
 
-        private static string SetScore(int tempScore, string score)
+        private static string SetScore(int tempScore)
         {
             return GetScoreStringFromNumber(tempScore).ToString();
         }
@@ -81,7 +74,7 @@ namespace Tennis
 
         private string CalculateTieScore()
         {
-            return _mScore1 switch
+            return _player1Points switch
             {
                 0 => $"{Scores.Love}-All",
                 1 => $"{Scores.Fifteen}-All",
@@ -93,12 +86,12 @@ namespace Tennis
         private bool IsWinningScore()
         {
             const int winningPoint = 4;
-            return _mScore1 >= winningPoint || _mScore2 >= winningPoint;
+            return _player1Points >= winningPoint || _player2Points >= winningPoint;
         }
 
         private bool IsEqualScore()
         {
-            return _mScore1 == _mScore2;
+            return _player1Points == _player2Points;
         }
     }
 }
