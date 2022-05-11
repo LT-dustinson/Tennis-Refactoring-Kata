@@ -4,9 +4,11 @@ namespace Tennis
     {
         private int _player1Points;
         private int _player2Points;
+        private readonly string _player1Name;
 
         public TennisGame1(string player1Name, string player2Name)
         {
+            _player1Name = player1Name;
         }
 
         private enum Scores
@@ -20,7 +22,7 @@ namespace Tennis
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
+            if (playerName == _player1Name)
                 _player1Points += 1;
             else
                 _player2Points += 1;
@@ -28,17 +30,17 @@ namespace Tennis
 
         public string GetScore()
         {
-            if (IsEqualScore())
-                return CalculateTieScore();
+            if (IsTieScore())
+                return SetTieScore();
 
             if (IsWinningScore())
                 return SetAdvantageOrWinScore();
             
-            return SetPlayersScores();
+            return SetPlayersScore();
             
         }
 
-        private string SetPlayersScores()
+        private string SetPlayersScore()
         {
             return SetScore(_player1Points) + "-" + SetScore(_player2Points);
         }
@@ -48,9 +50,9 @@ namespace Tennis
             var minusResult = _player1Points - _player2Points;
             var score = minusResult switch
             {
-                1 => "Advantage player1",
+                1 => $"Advantage {_player1Name}",
                 -1 => "Advantage player2",
-                >= 2 => "Win for player1",
+                >= 2 => $"Win for {_player1Name}",
                 _ => "Win for player2"
             };
             return score;
@@ -72,7 +74,7 @@ namespace Tennis
             };
         }
 
-        private string CalculateTieScore()
+        private string SetTieScore()
         {
             return _player1Points switch
             {
@@ -89,7 +91,7 @@ namespace Tennis
             return _player1Points >= winningPoint || _player2Points >= winningPoint;
         }
 
-        private bool IsEqualScore()
+        private bool IsTieScore()
         {
             return _player1Points == _player2Points;
         }
