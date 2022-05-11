@@ -49,9 +49,6 @@ namespace Tennis.Tests
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
     
-    //Megan Kaufman
-    //Dustin Thostenson
-    //asdf
     public class TennisTests
     {
         [Theory]

@@ -67,39 +67,32 @@ namespace Tennis
         {
             string score;
             var minusResult = _mScore1 - _mScore2;
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
+            score = minusResult switch
+            {
+                1 => "Advantage player1",
+                -1 => "Advantage player2",
+                >= 2 => "Win for player1",
+                _ => "Win for player2"
+            };
             return score;
         }
 
         private static string SetScore(int tempScore, string score)
         {
-            score = GetScoreStringFromNumber(tempScore, score);
+            score += GetScoreStringFromNumber(tempScore);
 
             return score;
         }
 
-        private static string GetScoreStringFromNumber(int tempScore, string score)
+        private static Scores GetScoreStringFromNumber(int tempScore)
         {
-            switch (tempScore)
+            return tempScore switch
             {
-                case 0:
-                    score += Scores.Love;
-                    break;
-                case 1:
-                    score += Scores.Fifteen;
-                    break;
-                case 2:
-                    score += Scores.Thirty;
-                    break;
-                case 3:
-                    score += Scores.Forty;
-                    break;
-            }
-
-            return score;
+                0 => Scores.Love,
+                1 => Scores.Fifteen,
+                2 => Scores.Thirty,
+                _ => Scores.Forty
+            };
         }
 
         private string CalculateTieScore()
