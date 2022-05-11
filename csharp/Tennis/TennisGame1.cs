@@ -81,29 +81,19 @@ namespace Tennis
 
         private string CalculateTieScore()
         {
-            string score;
-            switch (_mScore1)
+            return _mScore1 switch
             {
-                case 0:
-                    score = $"{Scores.Love}-All";
-                    break;
-                case 1:
-                    score = $"{Scores.Fifteen}-All";
-                    break;
-                case 2:
-                    score = $"{Scores.Thirty}-All";
-                    break;
-                default:
-                    score = Scores.Deuce.ToString();
-                    break;
-            }
-
-            return score;
+                0 => $"{Scores.Love}-All",
+                1 => $"{Scores.Fifteen}-All",
+                2 => $"{Scores.Thirty}-All",
+                _ => Scores.Deuce.ToString()
+            };
         }
 
         private bool IsWinningScore()
         {
-            return _mScore1 >= 4 || _mScore2 >= 4;
+            const int winningPoint = 4;
+            return _mScore1 >= winningPoint || _mScore2 >= winningPoint;
         }
 
         private bool IsEqualScore()
