@@ -32,25 +32,11 @@ namespace Tennis
             var tempScore = 0;
             //too much nesting
             //magic string smell
-            if (m_score1 == m_score2)
+            if (isEqualScore())
             {
-                switch (m_score1)
-                {
-                    case 0:
-                        score = $"{Scores.Love}-All";
-                        break;
-                    case 1:
-                        score = $"{Scores.Fifteen}-All";
-                        break;
-                    case 2:
-                        score = $"{Scores.Thirty}-All";
-                        break;
-                    default:
-                        score = Scores.Deuce.ToString();
-                        break;
-                }
+                score = CalculateTieScore();
             }
-            else if (m_score1 >= 4 || m_score2 >= 4)
+            else if (IsWinningScore())
             {
                 var minusResult = m_score1 - m_score2;
                 if (minusResult == 1) score = "Advantage player1";
@@ -88,6 +74,38 @@ namespace Tennis
             }
 
             return score;
+        }
+
+        private bool IsWinningScore()
+        {
+            return m_score1 >= 4 || m_score2 >= 4;
+        }
+
+        private string CalculateTieScore()
+        {
+            string score;
+            switch (m_score1)
+            {
+                case 0:
+                    score = $"{Scores.Love}-All";
+                    break;
+                case 1:
+                    score = $"{Scores.Fifteen}-All";
+                    break;
+                case 2:
+                    score = $"{Scores.Thirty}-All";
+                    break;
+                default:
+                    score = Scores.Deuce.ToString();
+                    break;
+            }
+
+            return score;
+        }
+
+        private bool isEqualScore()
+        {
+            return m_score1 == m_score2;
         }
     }
 }
