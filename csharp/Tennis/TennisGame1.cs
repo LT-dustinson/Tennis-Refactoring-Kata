@@ -47,26 +47,7 @@ namespace Tennis
 
         private string SetAsdf(string score)
         {
-            // for (var i = 1; i < 3; i++)
-            // {
-            //     int tempScore;
-            //     if (i == 1) tempScore = _mScore1;
-            //     else
-            //     {
-            //         score += "-";
-            //         tempScore = _mScore2;
-            //     }
-            //
-            //     score = SetScore(tempScore, score);
-            // }
-            //unwrapping of loop
-            int tempScoreasdf = _mScore1;
-            score = SetScore(tempScoreasdf, score);
-            score += "-";
-            tempScoreasdf = _mScore2;
-            score = SetScore(tempScoreasdf, score);
-
-            return score;
+            return SetScore(_mScore1, score) + "-" + SetScore(_mScore2, score);
         }
 
         private string SetAdvantageOrWinScore()
@@ -84,9 +65,7 @@ namespace Tennis
 
         private static string SetScore(int tempScore, string score)
         {
-            score += GetScoreStringFromNumber(tempScore);
-
-            return score;
+            return GetScoreStringFromNumber(tempScore).ToString();
         }
 
         private static Scores GetScoreStringFromNumber(int tempScore)
